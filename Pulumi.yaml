@@ -1,0 +1,4 @@
+name: azure-assets
+runtime: dotnet
+description: Creates and configures Azure assets necessary to support Beckshome deployments
+azure-native:location: EastUS
