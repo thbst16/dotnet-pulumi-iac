@@ -127,9 +127,9 @@ class MyStack : Stack
         this.RoslynClassUrl = Output.Format($"https://{storageAccount.Name}.blob.core.windows.net/public/rosslyn-classes.txt");
 
         // Create Cognitive / Storage Service
-        var cogntiveAccount = new Pulumi.AzureNative.CognitiveServices.Account("beckshome-translator", new Pulumi.AzureNative.CognitiveServices.AccountArgs
+        var cogntiveAccount = new Pulumi.AzureNative.CognitiveServices.Account("beckshome-translation-1", new Pulumi.AzureNative.CognitiveServices.AccountArgs
         {
-            AccountName = "beckshome-translator",
+            AccountName = "beckshome-translation-1",
             ResourceGroupName = resourceGroup.Name,
             Kind = "TextTranslation",
             Location = "eastus",
