@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  app:
+    image: thbst16/azure-function-notification:latest
+    ports:
+      - "80:80"
+    volumes:
+      - azure-mount:/app/config
