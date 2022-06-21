@@ -1,6 +1,6 @@
 # dotnet-pulumi-iac
 
-The dotnet-pulumi-iac solution presents a comprehensive solution for complete infrastructure as code (IaC) provisioning of a non-trivial Azure application environment. The solution provisions all of the Azure infrastructure necessary to host all of the demo applications supporting my GitHub public projects.
+The dotnet-pulumi-iac solution presents a comprehensive solution for complete infrastructure as code (IaC) provisioning of a non-trivial Azure application environment. The solution provisions all of the Azure infrastructure necessary to host all of the demo applications supporting my GitHub public projects. The project uses [Pulumi](https://www.pulumi.com/) as the Infrastructure as Code (IaC) framework with C# as the IaC language.
 
 # Provisioning Architecture
 
