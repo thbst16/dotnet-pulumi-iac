@@ -33,4 +33,9 @@ Pulumi scripts can be integrated into Azure DevOps pipelines, effectively rebuil
 
 # Motivation and Credits 
 
-Bulleted list of blogs
+There is no single site that had all the answers I was looking for but there were pieces of the puzzle that came together for this solution. These pieces started with Pulumi's sample code to deploy an Azure App Service runing containers on Linux. Two second two articles provided excellent and more detailed examples illustrating the nuances of dynamically configurable, Pulumi-based deployments. the final link is to the Pulumi Azure task extension for Azure Pipelines, in case you want to include Pulumi deployments as part of your pipeline execution.
+
+* [Azure App Service Running Docker Containers on Linux](https://www.pulumi.com/registry/packages/azure-native/how-to-guides/azure-cs-appservice-docker/)
+* [Infrastructure as Code - An Intro - Part 6 - Using Pulumi](https://www.fearofoblivion.com/iac-an-intro-part-6)
+* [Deploying .NET to Azure App Service with Pulumi](https://martink.me/articles/deploying-.net-to-azure-app-service-with-pulumi)
+* [Pulumi Azure Task Extenison for Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=pulumi.build-and-release-task)
