@@ -17,13 +17,16 @@ This solution addresses the following specific provisioning facets:
 
 The figure below reflects the specific provsioning architecture applied through this project. The Azure Resource Group and all of the cloud objects within the Resource Group are all provsioned dynamically via Pulumi and are all defined explicitly in the MyStack.cs file in this project.
 
-
 ### Provisioning Architecture
 ![Dotnet Pulumi Provisioning Architecture](https://s3.amazonaws.com/s3.beckshome.com/20220620-dotnet-pulumi-iac-provision.png)
 
 # Deployment Architecture
 
-Picture + explanation
+As explained in the provisioning section, the cloud infrastructure for the entire suite of applications I host can be deployed via a single command (pulumi up) and removed via another command (pulumi down). Since the provisioning includes the deployment from Docker Hub, the result is a set of running web applications. Re-executing the "pulumi up" command will result in any cloud infrastructure changes in MyStack.cs being applied but will not materially change the application.
+
+The deployment architecture below reflects how the Azure DevOps CI/CD pipeline interacts with the Pulumi-deployed cloud architecture to effectuate changes to the application. As shown in the picture, this involves an application build and dockerization (steps 2 and 3). The interaction with the cloud architecture occurs in steps 4 and 5 where the CI/CD pipeline pushes the new Docker image to Docker Hub (step 4) and then restarts the web application created by the Pulumi script (step 5). 
+
+Pulumi scripts can be integrated into Azure DevOps pipelines, effectively rebuilding the entire cloud architecture with each build and deployment cycle. This is not done in this case since this project provisions the cloud architecture for a suite of Azure web applications, not a single application.
 
 ### Deployment Architecture
 ![Dotnet Pulumi Deployment Architecture](https://s3.amazonaws.com/s3.beckshome.com/20220620-dotnet-pulumi-iac-deploy.png)
