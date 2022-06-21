@@ -4,7 +4,15 @@ The dotnet-pulumi-iac solution presents a comprehensive solution for complete in
 
 # Provisioning Architecture
 
-Picture + attributes (bulleted list) + why this is hard
+Pulumi documentation and sample projects provide excellent examples of provisioning simple Azure AppService and Web App environments. These examples provide all the requisite details on provisioning the Azure Resource Groups, App Service and web apps necessary to get an Azure web-based app up and running.
+
+However, there isn't an example of a non-trivial use case -- one that incorporates the reality of dynamic configuration and utilizes the power of Docker-based deployments that have been avaialble with Azure App Service for several years.
+
+This solution addresses the following specific provisioning facets:
+
+* 
+
+
 ### Provisioning Architecture
 ![Dotnet Pulumi Provisioning Architecture](https://s3.amazonaws.com/s3.beckshome.com/20220620-dotnet-pulumi-iac-provision.png)
 
