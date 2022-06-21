@@ -10,7 +10,12 @@ However, there isn't an example of a non-trivial use case -- one that incorporat
 
 This solution addresses the following specific provisioning facets:
 
-* 
+* Docker-based deployments to Azure App Services using App Service Linux-based hosting.
+* Specifically, Docker container deployments using Docker Compose, enabling multi-container deployments and the specification of mount points in the compose file.
+* Externalizing secrets from the Docker image and specifying these at run time by dynamically mouting configuration files stored in Azure Blob storage.
+* Applying dynamic configuration changes at the time of IaC execution to inejct custom cloud resource settings into the application configuration that could not be known until the cloud resource is provisioned (e.g. the Azure Blob secret key)
+
+The figure below reflects the specific provsioning architecture applied through this project. The Azure Resource Group and all of the cloud objects within the Resource Group are all provsioned dynamically via Pulumi and are all defined explicitly in the MyStack.cs file in this project.
 
 
 ### Provisioning Architecture
