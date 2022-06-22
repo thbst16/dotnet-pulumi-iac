@@ -127,9 +127,9 @@ class MyStack : Stack
         this.RoslynClassUrl = Output.Format($"https://{storageAccount.Name}.blob.core.windows.net/public/rosslyn-classes.txt");
 
         // Create Cognitive / Storage Service
-        var cogntiveAccount = new Pulumi.AzureNative.CognitiveServices.Account("beckshome-translation-1", new Pulumi.AzureNative.CognitiveServices.AccountArgs
+        var cogntiveAccount = new Pulumi.AzureNative.CognitiveServices.Account("beckshome-translation-2", new Pulumi.AzureNative.CognitiveServices.AccountArgs
         {
-            AccountName = "beckshome-translation-1",
+            AccountName = "beckshome-translation-2",
             ResourceGroupName = resourceGroup.Name,
             Kind = "TextTranslation",
             Location = "eastus",
@@ -147,9 +147,9 @@ class MyStack : Stack
         Byte[] blazorCrudBytes = File.ReadAllBytes("./docker/docker-compose-blazorcrud.yml");
         string blazorcrudComposeBase64 = Convert.ToBase64String(blazorCrudBytes);
 
-        var blazorCrudApp = new WebApp("beckshome-blazorcrud-app", new WebAppArgs
+        var blazorCrudApp = new WebApp("becksblazor", new WebAppArgs
         {
-            Name = "beckshome-blazorcrud-app",
+            Name = "becksblazor",
             ResourceGroupName = resourceGroup.Name,
             ServerFarmId = plan.Id,
             SiteConfig = new SiteConfigArgs
@@ -176,9 +176,9 @@ class MyStack : Stack
         Byte[] rosettaStoneBytes = File.ReadAllBytes("./docker/docker-compose-rosetta-stone.yml");
         string rosettaStoneComposeBase64 = Convert.ToBase64String(rosettaStoneBytes);
 
-        var rosettaStoneApp = new WebApp("beckshome-rosetta-stone-app", new WebAppArgs
+        var rosettaStoneApp = new WebApp("dotnet-signalr-rosetta-stone", new WebAppArgs
         {
-            Name = "beckshome-rosetta-stone-app",
+            Name = "dotnet-signalr-rosetta-stone",
             ResourceGroupName = resourceGroup.Name,
             ServerFarmId = plan.Id,
             SiteConfig = new SiteConfigArgs
@@ -193,7 +193,7 @@ class MyStack : Stack
                     new NameValuePairArgs
                     {
                         Name = "HubConfiguration__Url",
-                        Value = "https://beckshome-rosetta-stone-app.azurewebsites.net"
+                        Value = "https://dotnet-signalr-rosetta-stone.azurewebsites.net"
                     },
                     new NameValuePairArgs
                     {
@@ -214,7 +214,7 @@ class MyStack : Stack
         new CustomResourceOptions { DeleteBeforeReplace = true }
         );
 
-        var rosettaStoneStorage = new WebAppAzureStorageAccounts("beckshome-rosetta-stone-storage",
+        var rosettaStoneStorage = new WebAppAzureStorageAccounts("dotnet-signalr-rosetta-stone-storage",
             new WebAppAzureStorageAccountsArgs
             {
                  Name = rosettaStoneApp.Name,
@@ -246,9 +246,9 @@ class MyStack : Stack
         Byte[] roslynApiBytes = File.ReadAllBytes("./docker/docker-compose-roslyn-api.yml");
         string roslynApiComposeBase64 = Convert.ToBase64String(roslynApiBytes);
 
-        var roslynApiApp = new WebApp("beckshome-roslyn-api-app", new WebAppArgs
+        var roslynApiApp = new WebApp("dotnet-roslyn-dynamic-api", new WebAppArgs
         {
-            Name = "beckshome-roslyn-api-app",
+            Name = "dotnet-roslyn-dynamic-api",
             ResourceGroupName = resourceGroup.Name,
             ServerFarmId = plan.Id,
             SiteConfig = new SiteConfigArgs
@@ -279,7 +279,7 @@ class MyStack : Stack
         new CustomResourceOptions { DeleteBeforeReplace = true }
         );
 
-        var roslynApiStorage = new WebAppAzureStorageAccounts("beckshome-roslyn-api-storage",
+        var roslynApiStorage = new WebAppAzureStorageAccounts("dotnet-roslyn-dynamic-api-storage",
             new WebAppAzureStorageAccountsArgs
             {
                  Name = roslynApiApp.Name,
@@ -307,9 +307,9 @@ class MyStack : Stack
         Byte[] sheetsNotificationBytes = File.ReadAllBytes("./docker/docker-compose-sheets-notification.yml");
         string sheetsNotificationComposeBase64 = Convert.ToBase64String(sheetsNotificationBytes);
 
-        var sheetsNotificationApp = new WebApp("beckshome-sheets-notification-app", new WebAppArgs
+        var sheetsNotificationApp = new WebApp("dotnet-sheets-notification", new WebAppArgs
         {
-            Name = "beckshome-sheets-notification-app",
+            Name = "dotnet-sheets-notification",
             ResourceGroupName = resourceGroup.Name,
             ServerFarmId = plan.Id,
             SiteConfig = new SiteConfigArgs
@@ -330,7 +330,7 @@ class MyStack : Stack
         new CustomResourceOptions { DeleteBeforeReplace = true }
         );
 
-        var sheetsNotificationStorage = new WebAppAzureStorageAccounts("beckshome-sheets-notification-storage",
+        var sheetsNotificationStorage = new WebAppAzureStorageAccounts("dotnet-sheets-notification-storage",
             new WebAppAzureStorageAccountsArgs
             {
                  Name = sheetsNotificationApp.Name,
