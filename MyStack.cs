@@ -27,7 +27,7 @@ class MyStack : Stack
             Reserved = true,
             Sku = new SkuDescriptionArgs
             {
-                Name = "B1",
+                Name = "B2",
                 Tier = "Basic"
             }
         },
