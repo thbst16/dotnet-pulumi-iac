@@ -353,10 +353,37 @@ class MyStack : Stack
         );
 
         this.SheetsNotificationEndpoint = Output.Format($"https://{sheetsNotificationApp.DefaultHostName}");
+
+        // App 5: Static blog app using Statiq
+        var beckshomeBlogApp = new WebApp("dotnet-statiq-beckshome-blog", new WebAppArgs
+        {
+            Name = "dotnet-statiq-beckshome-blog",
+            ResourceGroupName = resourceGroup.Name,
+            ServerFarmId = plan.Id,
+            SiteConfig = new SiteConfigArgs
+            {
+                AppSettings = new[]
+                {
+                    new NameValuePairArgs
+                    {
+                        Name = "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+                        Value = "false"
+                    }
+                },
+                AlwaysOn = true,
+                LinuxFxVersion = "DOTNETCORE|6.0"
+            },
+            HttpsOnly = true
+        },
+        new CustomResourceOptions { DeleteBeforeReplace = true }
+        );
+
+        this.BeckshomeBlogEndpoint = Output.Format($"https://{beckshomeBlogApp.DefaultHostName}");
     }
     [Output] public Output<string> BlazorCrudEndpoint { get; set; }
     [Output] public Output<string> RosettaStoneEndpoint { get; set; }
     [Output] public Output<string> RoslynApiEndpoint { get; set; }
+    [Output] public Output<string> BeckshomeBlogEndpoint { get; set; }
     [Output] public Output<string> RoslynClassUrl { get; set; }
     [Output] public Output<string> SheetsNotificationEndpoint { get; set; }
     [Output] public Output<string> PrimaryStorageKey { get; set; }
