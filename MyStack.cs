@@ -374,11 +374,6 @@ class MyStack : Stack
             Name = "dotnet-statiq-beckshome-blog",
             ResourceGroupName = resourceGroup.Name,
             ServerFarmId = windowsPlan.Id,
-            SiteConfig = new SiteConfigArgs
-            {
-                AlwaysOn = true
-            },
-            HttpsOnly = true
         },
         new CustomResourceOptions { DeleteBeforeReplace = true }
         );
