@@ -11,14 +11,14 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        // Create a resource group
+        // Create beckshome resource group
         var resourceGroup = new ResourceGroup("beckshome-pulumi-rg", new ResourceGroupArgs{
             ResourceGroupName = "beckshome-pulumi-rg"
         },
         new CustomResourceOptions { DeleteBeforeReplace = true }
         );
 
-        // Create a new app service plan
+        // Create Linux / Docker app service plan
         var plan = new AppServicePlan("beckshome-pulumi-plan", new AppServicePlanArgs{
             ResourceGroupName = resourceGroup.Name,
             Kind = "Linux",
@@ -32,6 +32,20 @@ class MyStack : Stack
             }
         },
         new CustomResourceOptions { DeleteBeforeReplace = true }
+        );
+
+        // Create Windows app service plan
+        var windowsPlan = new AppServicePlan("beckshome-pulumi-windows-plan", new AppServicePlanArgs{
+            ResourceGroupName = resourceGroup.Name,
+            Kind = "App",
+            Name = "beckshome-pulumi-windows-plan",
+            Sku = new SkuDescriptionArgs
+            {
+                Name = "D1",
+                Tier = "Shared"
+            }
+        },
+        new CustomResourceOptions { DeleteBeforeReplace = true }    
         );
 
         // Create a storage account for docker configurations
@@ -353,12 +367,30 @@ class MyStack : Stack
         );
 
         this.SheetsNotificationEndpoint = Output.Format($"https://{sheetsNotificationApp.DefaultHostName}");
+
+        // App 5: Windows Web App for Statiq Blog
+        var beckshomeBlogApp = new WebApp("dotnet-statiq-beckshome-blog", new WebAppArgs
+        {
+            Name = "dotnet-statiq-beckshome-blog",
+            ResourceGroupName = resourceGroup.Name,
+            ServerFarmId = windowsPlan.Id,
+            SiteConfig = new SiteConfigArgs
+            {
+                AlwaysOn = true
+            },
+            HttpsOnly = true
+        },
+        new CustomResourceOptions { DeleteBeforeReplace = true }
+        );
+
+        this.BeckshomeBlogEndpoint = Output.Format($"https://{beckshomeBlogApp.DefaultHostName}");
     }
     [Output] public Output<string> BlazorCrudEndpoint { get; set; }
     [Output] public Output<string> RosettaStoneEndpoint { get; set; }
     [Output] public Output<string> RoslynApiEndpoint { get; set; }
     [Output] public Output<string> RoslynClassUrl { get; set; }
     [Output] public Output<string> SheetsNotificationEndpoint { get; set; }
+    [Output] public Output<string> BeckshomeBlogEndpoint { get; set; }
     [Output] public Output<string> PrimaryStorageKey { get; set; }
     [Output] public Output<string> PrimaryConnectionString {get; set;}
     [Output] public Output<string> PrimaryCognitiveKey {get; set;}
