@@ -122,36 +122,9 @@ class MyStack : Stack
             Source = new FileAsset("./blobs/public/rosslyn-classes.txt"),
         });
 
-        var staticWebsite = new StorageAccountStaticWebsite("staticBeckshomeBlog", new StorageAccountStaticWebsiteArgs
-        {
-            AccountName = storageAccount.Name,
-            ResourceGroupName = resourceGroup.Name,
-            IndexDocument = "index.html",
-            Error404Document = "404.html"
-        });
-
-        var indexHtmlBlob = new Blob("index.html", new BlobArgs
-        {
-            AccountName = storageAccount.Name,
-            ContainerName = staticWebsite.ContainerName,
-            ResourceGroupName = resourceGroup.Name,
-            Source = new FileAsset("./blobs/wwwroot/index.html"),
-            ContentType = "text/html"
-        });
-
-        var notFoundBlob = new Blob("404.html", new BlobArgs
-        {
-            AccountName = storageAccount.Name,
-            ContainerName = staticWebsite.ContainerName,
-            ResourceGroupName = resourceGroup.Name,
-            Source = new FileAsset("./blobs/wwwroot/404.html"),
-            ContentType = "text/html"
-        });
-
         this.PrimaryStorageKey = GetStorageAccountPrimaryKey(resourceGroup.Name, storageAccount.Name);
         this.PrimaryConnectionString = Output.Format($"DefaultEndpointsProtocol=https;AccountName={storageAccount.Name};AccountKey={this.PrimaryStorageKey};EndpointSuffix=core.windows.net");
         this.RoslynClassUrl = Output.Format($"https://{storageAccount.Name}.blob.core.windows.net/public/rosslyn-classes.txt");
-        this.StaticEndpoint = storageAccount.PrimaryEndpoints.Apply(primaryEndpoints => primaryEndpoints.Web);
 
         // Create Cognitive / Storage Service
         var cogntiveAccount = new Pulumi.AzureNative.CognitiveServices.Account("beckshome-translation-2", new Pulumi.AzureNative.CognitiveServices.AccountArgs
@@ -385,7 +358,6 @@ class MyStack : Stack
     [Output] public Output<string> RosettaStoneEndpoint { get; set; }
     [Output] public Output<string> RoslynApiEndpoint { get; set; }
     [Output] public Output<string> RoslynClassUrl { get; set; }
-    [Output] public Output<string> StaticEndpoint {get; set;}
     [Output] public Output<string> SheetsNotificationEndpoint { get; set; }
     [Output] public Output<string> PrimaryStorageKey { get; set; }
     [Output] public Output<string> PrimaryConnectionString {get; set;}
