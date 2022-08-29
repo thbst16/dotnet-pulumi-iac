@@ -41,8 +41,8 @@ class MyStack : Stack
             Name = "beckshome-pulumi-windows-plan",
             Sku = new SkuDescriptionArgs
             {
-                Name = "D1",
-                Tier = "Shared"
+                Name = "B1",
+                Tier = "Basic"
             }
         },
         new CustomResourceOptions { DeleteBeforeReplace = true }    
