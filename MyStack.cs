@@ -379,6 +379,35 @@ class MyStack : Stack
         );
 
         this.BeckshomeBlogEndpoint = Output.Format($"https://{beckshomeBlogApp.DefaultHostName}");
+
+        // App 6: Blazor Lucene.NET search application from Docker Compose file
+        Byte[] luceneSearchBytes = File.ReadAllBytes("./docker/docker-compose-lucene-search.yml");
+        string luceneSearchComposeBase64 = Convert.ToBase64String(luceneSearchBytes);
+
+        var luceneSearchApp = new WebApp("dotnet-lucene-search", new WebAppArgs
+        {
+            Name = "dotnet-lucene-search",
+            ResourceGroupName = resourceGroup.Name,
+            ServerFarmId = plan.Id,
+            SiteConfig = new SiteConfigArgs
+            {
+                AppSettings = new[]
+                {
+                    new NameValuePairArgs
+                    {
+                        Name = "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+                        Value = "false"
+                    }
+                },
+                AlwaysOn = true,
+                LinuxFxVersion = $"COMPOSE|{luceneSearchComposeBase64}"
+            },
+            HttpsOnly = true
+        },
+        new CustomResourceOptions { DeleteBeforeReplace = true }
+        );
+
+        this.LuceneSearchEndpoint = Output.Format($"https://{luceneSearchApp.DefaultHostName}");
     }
     [Output] public Output<string> BlazorCrudEndpoint { get; set; }
     [Output] public Output<string> RosettaStoneEndpoint { get; set; }
@@ -386,6 +415,7 @@ class MyStack : Stack
     [Output] public Output<string> RoslynClassUrl { get; set; }
     [Output] public Output<string> SheetsNotificationEndpoint { get; set; }
     [Output] public Output<string> BeckshomeBlogEndpoint { get; set; }
+    [Output] public Output<string> LuceneSearchEndpoint {get; set;}
     [Output] public Output<string> PrimaryStorageKey { get; set; }
     [Output] public Output<string> PrimaryConnectionString {get; set;}
     [Output] public Output<string> PrimaryCognitiveKey {get; set;}
